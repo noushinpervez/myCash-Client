@@ -2,12 +2,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Toast from '../../components/Toast'
 import useAxiosPublic from '../../hooks/useAxiosPublic'
 import { useState } from 'react'
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Cookies from 'js-cookie'
 
 const Login = () => {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const location = useLocation();
+    const queryClient = useQueryClient();
 
     const [formData, setFormData] = useState({
         identifier: '',
@@ -20,10 +22,14 @@ const Login = () => {
             return response.data;
         },
         onSuccess: (data) => {
+            Cookies.set('user', JSON.stringify({ id: data.id }), { expires: 1 });
+            queryClient.setQueryData('user', { id: data.id });
+
             Toast.fire({
                 icon: 'success',
                 title: data?.message
             });
+
             navigate(location?.state ? location?.state : '/');
         },
         onError: (error) => {
