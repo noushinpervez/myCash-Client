@@ -57,7 +57,7 @@ const Login = () => {
                 <div className='mt-10'>
                     <form action='submit' onSubmit={ handleSubmit }>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor='identifier' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Username</label>
+                            <label htmlFor='identifier' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Email/Mobile Number</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
