@@ -62,20 +62,20 @@ const SignUp = () => {
                 <div className='mt-10'>
                     <form action='submit' onSubmit={ handleSubmit }>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor="account" className="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Select an option</label>
+                            <label htmlFor='account' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Select an option</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1' viewBox='0 0 24 24' stroke='currentColor'>
-                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                        <path d="M8 3 H16 A3 3 0 0 1 19 6 V18 A3 3 0 0 1 16 21 H8 A3 3 0 0 1 5 18 V6 A3 3 0 0 1 8 3 z" />
-                                        <path d="M14 13 A2 2 0 0 1 12 15 A2 2 0 0 1 10 13 A2 2 0 0 1 14 13 z" />
-                                        <path d="M10 6h4M9 18h6" />
+                                        <path stroke='none' d='M0 0h24v24H0z' />
+                                        <path d='M8 3 H16 A3 3 0 0 1 19 6 V18 A3 3 0 0 1 16 21 H8 A3 3 0 0 1 5 18 V6 A3 3 0 0 1 8 3 z' />
+                                        <path d='M14 13 A2 2 0 0 1 12 15 A2 2 0 0 1 10 13 A2 2 0 0 1 14 13 z' />
+                                        <path d='M10 6h4M9 18h6' />
                                     </svg>
                                 </div>
-                                <select id="role" className="text-sm sm:text-base text-gray-500 pl-9 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" onChange={ handleRoleChange } required>
+                                <select id='role' className='text-sm sm:text-base text-gray-500 pl-9 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' onChange={ handleRoleChange } required>
                                     <option value='' disabled selected>Choose a role</option>
-                                    <option value="User">User</option>
-                                    <option value="Agent">Agent</option>
+                                    <option value='User'>User</option>
+                                    <option value='Agent'>Agent</option>
                                 </select>
                             </div>
                         </div>

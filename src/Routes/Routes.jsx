@@ -4,6 +4,7 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import Profile from '../pages/Dashboard/Profile/Profile'
 import PrivateRoute from './PrivateRoute'
+import ManageUsers from '../pages/Dashboard/Admin/ManageUsers/ManageUsers'
 
 export const router = createBrowserRouter([
     {
@@ -15,6 +16,12 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <PrivateRoute>
                     <Profile />
+                </PrivateRoute>,
+            },
+            {
+                path: '/manage-users',
+                element: <PrivateRoute>
+                    <ManageUsers />
                 </PrivateRoute>,
             },
             {
