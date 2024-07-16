@@ -22,9 +22,9 @@ const Login = () => {
         onSuccess: (data) => {
             Toast.fire({
                 icon: 'success',
-                title: data.message
+                title: data?.message
             });
-            navigate(location?.state ? location.state : '/');
+            navigate(location?.state ? location?.state : '/');
         },
         onError: (error) => {
             Toast.fire({
