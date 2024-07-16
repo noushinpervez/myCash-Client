@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useAxiosPublic from '../../hooks/useAxiosPublic'
+import Toast from '../../components/Toast'
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         name: "",
@@ -21,9 +23,18 @@ const SignUp = () => {
         e.preventDefault();
         try {
             const response = await axiosPublic.post("/users", formData);
-            console.log("Server Response:", response.data);
+            
+            Toast.fire({
+                icon: 'success',
+                title: response?.data?.message
+            });
+
+            navigate('/login');
         } catch (error) {
-            console.error("Error submitting form:", error);
+            Toast.fire({
+                icon: 'error',
+                title: error.response?.data?.message || 'An error occurred. Please try again.'
+            });
         }
     };
 
@@ -100,7 +111,7 @@ const SignUp = () => {
                         </div>
                         <div className="flex w-full">
                             <button type="submit" className="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-                                <span className="mr-2 uppercase">Login</span>
+                                <span className="mr-2 uppercase">Sign Up</span>
                                 <span>
                                     <svg className="h-6 w-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                                         <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -117,7 +128,7 @@ const SignUp = () => {
                                 <path d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                             </svg>
                         </span>
-                        <span className="ml-2">Don't have an account?</span>
+                        <span className="ml-2">Already have an account?</span>
                     </Link>
                 </div>
             </div>
