@@ -1,28 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import useUserData from '../../../hooks/useUserData'
-import useAxiosPublic from '../../../hooks/useAxiosPublic'
 import Loading from '../../../components/Loading'
-import { useState } from 'react';
+import useUserDataQuery from '../../../hooks/useUserDataQuery'
 
 const Profile = () => {
     const user = useUserData();
-    const axiosPublic = useAxiosPublic();
-    const [loading, setLoading] = useState(true);
+    const { data: userData, isLoading } = useUserDataQuery(user?.id);
 
-    const { data: userData } = useQuery({
-        queryKey: ['user', user?.id],
-        queryFn: async () => {
-            const response = await axiosPublic.get(`/users/${user?.id}`, {
-                withCredentials: true,
-            });
-
-            setLoading(false);
-            return response.data;
-        },
-        enabled: !!user?.id,
-    });
-
-    if (loading) {
+    if (isLoading) {
         return <Loading />;
     }
 

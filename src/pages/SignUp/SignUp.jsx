@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useAxiosPublic from '../../hooks/useAxiosPublic'
 import Toast from '../../components/Toast'
-import Loading from '../../components/Loading';
+import Loading from '../../components/Loading'
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();

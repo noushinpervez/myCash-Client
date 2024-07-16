@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import Cookies from 'js-cookie'
 
 const useUserData = () => {
     const queryClient = useQueryClient();
