@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAxiosPublic from '../../hooks/useAxiosPublic'
 import Toast from '../../components/Toast'
 import Loading from '../../components/Loading'
+import ErrorToast from '../../components/ErrorToast'
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
@@ -31,7 +32,6 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-
         try {
             const response = await axiosPublic.post('/users', formData);
 
@@ -42,7 +42,7 @@ const SignUp = () => {
 
             navigate('/login');
         } catch (error) {
-            Toast.fire({
+            ErrorToast.fire({
                 icon: 'error',
                 title: error.response?.data?.message || 'An error occurred. Please try again.'
             });
@@ -56,7 +56,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100'>
+        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4'>
             <div className='flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
                 <div className='font-medium self-center text-xl sm:text-2xl uppercase text-gray-800'>Create An Account</div>
                 <div className='mt-10'>
@@ -73,7 +73,7 @@ const SignUp = () => {
                                     </svg>
                                 </div>
                                 <select id='role' className='text-sm sm:text-base text-gray-500 pl-9 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' onChange={ handleRoleChange } required>
-                                    <option value='' disabled selected>Choose a role</option>
+                                    <option value='' disabled>Choose a role</option>
                                     <option value='User'>User</option>
                                     <option value='Agent'>Agent</option>
                                 </select>
@@ -97,7 +97,7 @@ const SignUp = () => {
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1' viewBox='0 0 48 48' stroke='currentColor'>
-                                        <path id='Combined Shape' fillRule='evenodd' clipRule='evenodd' d='M36.0248 7C36.0248 5.34318 34.6826 4 33.0248 4H14.9988C13.344 4 11.9988 5.34425 11.9988 7V41C11.9988 42.6558 13.344 44 14.9988 44H33.0248C34.6826 44 36.0248 42.6568 36.0248 41V37.0828C36.0252 37.0712 36.0254 37.0595 36.0254 37.0478C36.0254 37.0361 36.0252 37.0244 36.0248 37.0128V7ZM34.0248 36.0478V7C34.0248 6.44744 33.5777 6 33.0248 6H14.9988C14.4482 6 13.9988 6.44913 13.9988 7V10.0478H31.0254C31.5777 10.0478 32.0254 10.4955 32.0254 11.0478C32.0254 11.6001 31.5777 12.0478 31.0254 12.0478H13.9988V41C13.9988 41.5509 14.4482 42 14.9988 42H33.0248C33.5777 42 34.0248 41.5526 34.0248 41V38.0478H16.9994C16.4471 38.0478 15.9994 37.6001 15.9994 37.0478C15.9994 36.4955 16.4471 36.0478 16.9994 36.0478H34.0248Z' fill='currentColor' />
+                                        <path fillRule='evenodd' clipRule='evenodd' d='M36.0248 7C36.0248 5.34318 34.6826 4 33.0248 4H14.9988C13.344 4 11.9988 5.34425 11.9988 7V41C11.9988 42.6558 13.344 44 14.9988 44H33.0248C34.6826 44 36.0248 42.6568 36.0248 41V37.0828C36.0252 37.0712 36.0254 37.0595 36.0254 37.0478C36.0254 37.0361 36.0252 37.0244 36.0248 37.0128V7ZM34.0248 36.0478V7C34.0248 6.44744 33.5777 6 33.0248 6H14.9988C14.4482 6 13.9988 6.44913 13.9988 7V10.0478H31.0254C31.5777 10.0478 32.0254 10.4955 32.0254 11.0478C32.0254 11.6001 31.5777 12.0478 31.0254 12.0478H13.9988V41C13.9988 41.5509 14.4482 42 14.9988 42H33.0248C33.5777 42 34.0248 41.5526 34.0248 41V38.0478H16.9994C16.4471 38.0478 15.9994 37.6001 15.9994 37.0478C15.9994 36.4955 16.4471 36.0478 16.9994 36.0478H34.0248Z' fill='currentColor' />
                                     </svg>
                                 </div>
                                 <input id='number' type='text' name='number' pattern='01[0-9]{9}' maxLength='11' onInput={ (event) => {
@@ -141,7 +141,7 @@ const SignUp = () => {
                                 </div>
                                 <input id='pin' type='password' name='pin' pattern='[0-9]{5}' maxLength='5' onInput={ (event) => {
                                     event.target.value = event.target.value.replace(/[^0-9]/g, '');
-                                } } value={ formData.pin } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='*****' required />
+                                } } value={ formData.pin } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='*****' autoComplete='' required />
                             </div>
                         </div>
                         <div className='flex w-full'>

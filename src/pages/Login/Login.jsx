@@ -4,6 +4,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic'
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Cookies from 'js-cookie'
+import ErrorToast from '../../components/ErrorToast'
 
 const Login = () => {
     const axiosPublic = useAxiosPublic();
@@ -22,9 +23,9 @@ const Login = () => {
             return response.data;
         },
         onSuccess: (data) => {
-            Cookies.set('user', JSON.stringify({ id: data.id }), { expires: 1 });
+            Cookies.set('user', JSON.stringify({ id: data.token }), { expires: 1 });
             queryClient.setQueryData('user', { id: data.id });
-
+            
             Toast.fire({
                 icon: 'success',
                 title: data?.message
@@ -33,7 +34,7 @@ const Login = () => {
             navigate(location?.state ? location?.state : '/');
         },
         onError: (error) => {
-            Toast.fire({
+            ErrorToast.fire({
                 icon: 'error',
                 title: error.response?.data?.message || 'An error occurred. Please try again.'
             });
@@ -51,7 +52,7 @@ const Login = () => {
     };
 
     return (
-        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100'>
+        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4'>
             <div className='flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
                 <div className='font-medium self-center text-xl sm:text-2xl uppercase text-gray-800'>Login To Your Account</div>
                 <div className='mt-10'>
@@ -79,7 +80,7 @@ const Login = () => {
                                 </div>
                                 <input id='pin' type='password' name='pin' pattern='[0-9]{5}' maxLength='5' onInput={ (event) => {
                                     event.target.value = event.target.value.replace(/[^0-9]/g, '');
-                                } } value={ formData.pin } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='*****' required />
+                                } } value={ formData.pin } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='*****' autoComplete='' required />
                             </div>
                         </div>
                         <div className='flex w-full'>

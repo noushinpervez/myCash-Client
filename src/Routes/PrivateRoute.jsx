@@ -18,7 +18,6 @@ const PrivateRoute = ({ children }) => {
                 setIsAuthenticated(false);
             }
         };
-
         checkAuth();
     }, [axiosPublic]);
 

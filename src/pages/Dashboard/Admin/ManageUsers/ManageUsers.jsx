@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import useAxiosPublic from '../../../../hooks/useAxiosPublic'
+import useAxiosSecure from '../../../../hooks/useAxiosSecure'
 import Loading from '../../../../components/Loading'
 import Toast from '../../../../components/Toast'
+import ErrorToast from '../../../../components/ErrorToast'
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
@@ -9,12 +10,12 @@ const ManageUsers = () => {
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axiosPublic.get('/users', {
+                const response = await axiosSecure.get('/users', {
                     withCredentials: true,
                 });
                 setUsers(response.data);
@@ -28,7 +29,7 @@ const ManageUsers = () => {
             }
         };
         fetchUsers();
-    }, [axiosPublic]);
+    }, [axiosSecure]);
 
     useEffect(() => {
         const results = users.filter(user =>
@@ -37,12 +38,12 @@ const ManageUsers = () => {
         setFilteredUsers(results);
     }, [search, users]);
 
-    const handleSearchChange = (event) => {
-        setSearch(event.target.value);
+    const handleSearchChange = (e) => {
+        setSearch(e.target.value);
     };
 
     const handleStatusChange = async (id, newStatus) => {
-        const response = await axiosPublic.patch(`/users/${id}`, { status: newStatus }, {
+        const response = await axiosSecure.patch(`/users/${id}`, { status: newStatus }, {
             withCredentials: true,
         });
         if (response.data.modifiedCount > 0) {
@@ -61,7 +62,7 @@ const ManageUsers = () => {
                     title: 'User activated successfully'
                 });
             } else {
-                Toast.fire({
+                ErrorToast.fire({
                     icon: 'error',
                     title: 'User blocked successfully'
                 });
@@ -75,14 +76,14 @@ const ManageUsers = () => {
 
     if (error) {
         return (
-            <div className='text-red-500 text-center text-xl font-semibold'>
+            <div className='text-red-500 text-center text-xl font-semibold min-h-screen flex items-center'>
                 { error }
             </div>
         );
     }
 
     return (
-        <div className='min-h-screen overflow-hidden overflow-x-scroll flex flex-col items-center justify-center'>
+        <div className='min-h-screen flex flex-col md:items-center justify-center bg-gray-100 w-full px-4'>
             <div className='font-medium self-center text-xl sm:text-2xl uppercase text-gray-800'>Manage Users</div>
             <div className='w-full max-w-lg my-8'>
                 <form className='sm:flex sm:items-center'>
@@ -90,60 +91,62 @@ const ManageUsers = () => {
                 </form>
             </div>
             { filteredUsers.length === 0 ? (<div className='text-center text-gray-500'>No users found</div>) : (
-                <table className='divide-y divide-gray-200 overflow-hidden overflow-x-scroll rounded-md'>
-                    <thead className='bg-gray-50'>
-                        <tr>
-                            <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                                Name
-                            </th>
-                            <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                                Mobile Number
-                            </th>
-                            <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                                Status
-                            </th>
-                            <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                                Role
-                            </th>
-                            <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className='bg-white divide-y divide-gray-200'>
-                        { filteredUsers.map(user => (
-                            <tr key={ user._id }>
-                                <td className='px-6 py-4 whitespace-nowrap'>
-                                    <div className='flex items-center'>
-                                        <div className='ml-4'>
-                                            <div className='text-sm font-medium text-gray-900 text-ellipsis overflow-hidden w-26'>
-                                                { user.name }
-                                            </div>
-                                            <div className='text-sm text-gray-500 text-ellipsis overflow-hidden w-24'>
-                                                { user.email }
+                <div className='overflow-scroll rounded-md'>
+                    <table className='divide-y divide-gray-200'>
+                        <thead className='bg-gray-50'>
+                            <tr>
+                                <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                                    Name
+                                </th>
+                                <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                                    Mobile Number
+                                </th>
+                                <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                                    Status
+                                </th>
+                                <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                                    Role
+                                </th>
+                                <th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className='bg-white divide-y divide-gray-200'>
+                            { filteredUsers.map(user => (
+                                <tr key={ user._id }>
+                                    <td className='px-6 py-4 whitespace-nowrap'>
+                                        <div className='flex items-center'>
+                                            <div>
+                                                <div className='text-sm font-medium text-gray-900 text-ellipsis overflow-hidden w-26'>
+                                                    { user.name }
+                                                </div>
+                                                <div className='text-sm text-gray-500 text-ellipsis overflow-hidden w-24'>
+                                                    { user.email }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td className='px-6 py-4 whitespace-nowrap'>
-                                    <div className='text-sm text-gray-500'>{ user.number }</div>
-                                </td>
-                                <td className='px-6 py-4 whitespace-nowrap'>
-                                    <span className={ `px-2 inline-flex text-xs leading-5 font-semibold rounded-full transition-all duration-300 ${user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}` }>
-                                        { user.status }
-                                    </span>
-                                </td>
-                                <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                                    { user.role }
-                                </td>
-                                <td className='px-6 py-4 whitespace-nowrap  text-sm font-medium'>
-                                    <button className='text-blue-600 hover:text-blue-800' onClick={ () => handleStatusChange(user._id, 'active') }>Active</button>
-                                    <button className='ml-2 text-red-600 hover:text-red-500' onClick={ () => handleStatusChange(user._id, 'blocked') }>Block</button>
-                                </td>
-                            </tr>
-                        )) }
-                    </tbody>
-                </table>
+                                    </td>
+                                    <td className='px-6 py-4 whitespace-nowrap'>
+                                        <div className='text-sm text-gray-500'>{ user.number }</div>
+                                    </td>
+                                    <td className='px-6 py-4 whitespace-nowrap'>
+                                        <span className={ `px-2 inline-flex text-xs leading-5 font-semibold rounded-full transition-all duration-300 ${user.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}` }>
+                                            { user.status }
+                                        </span>
+                                    </td>
+                                    <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
+                                        { user.role }
+                                    </td>
+                                    <td className='px-6 py-4 whitespace-nowrap  text-sm font-medium'>
+                                        <button className='text-blue-600 hover:text-blue-800' onClick={ () => handleStatusChange(user._id, 'active') }>Active</button>
+                                        <button className='ml-2 text-red-600 hover:text-red-500' onClick={ () => handleStatusChange(user._id, 'blocked') }>Block</button>
+                                    </td>
+                                </tr>
+                            )) }
+                        </tbody>
+                    </table>
+                </div>
             ) }
         </div>
     );
