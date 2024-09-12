@@ -1,6 +1,6 @@
-import useUserData from '../../../hooks/useUserData'
-import Loading from '../../../components/Loading'
-import useUserDataQuery from '../../../hooks/useUserDataQuery'
+import useUserData from '../../../hooks/useUserData';
+import Loading from '../../../components/Loading';
+import useUserDataQuery from '../../../hooks/useUserDataQuery';
 
 const Profile = () => {
     const { user, loading } = useUserData();
@@ -17,7 +17,7 @@ const Profile = () => {
                     <span className='absolute top-25 z-0 h-20 w-20 rounded-full bg-blue-500 transition-all duration-300 group-hover:scale-[11.5]'></span>
                     <div className='relative z-10 mx-auto max-w-md'>
                         <div className='text-right -mt-12'>
-                            <p className='text-blue-900 font-medium'>{ data?.role }</p>
+                            <p className='text-blue-900 font-medium h-6'>{ data?.role }</p>
                             <p className={ `mt-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full italic ${data?.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}` }>{ data?.status }</p>
                         </div>
                         <span className='grid h-20 w-20 place-items-center rounded-full bg-blue-500 transition-all duration-300 group-hover:bg-blue-700'>

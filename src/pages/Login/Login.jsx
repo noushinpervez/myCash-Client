@@ -1,10 +1,10 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import Toast from '../../components/Toast'
-import useAxiosPublic from '../../hooks/useAxiosPublic'
-import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Cookies from 'js-cookie'
-import ErrorToast from '../../components/ErrorToast'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Toast from '../../components/Toast';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import { useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
+import ErrorToast from '../../components/ErrorToast';
 
 const Login = () => {
     const axiosPublic = useAxiosPublic();

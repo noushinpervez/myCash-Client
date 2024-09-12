@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
-import Loading from '../components/Loading'
-import PropTypes from 'prop-types'
-import useAxiosPublic from '../hooks/useAxiosPublic'
-import useUserData from '../hooks/useUserData'
-import useUserDataQuery from '../hooks/useUserDataQuery'
+import { useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import Loading from '../components/Loading';
+import PropTypes from 'prop-types';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import useUserData from '../hooks/useUserData';
+import useUserDataQuery from '../hooks/useUserDataQuery';
 
 const UserActiveRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const axiosPublic = axios.create({
     baseURL: 'https://mycash-ten.vercel.app',

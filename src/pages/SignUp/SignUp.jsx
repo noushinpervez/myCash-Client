@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import useAxiosPublic from '../../hooks/useAxiosPublic'
-import Toast from '../../components/Toast'
-import Loading from '../../components/Loading'
-import ErrorToast from '../../components/ErrorToast'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import Toast from '../../components/Toast';
+import Loading from '../../components/Loading';
+import ErrorToast from '../../components/ErrorToast';
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();

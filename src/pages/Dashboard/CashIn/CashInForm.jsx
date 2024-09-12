@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
-const SendMoneyForm = ({ identifier, setIdentifier, amount, setAmount, handleFormSubmit }) => {
+const CashInForm = ({ identifier, setIdentifier, amount, setAmount, handleFormSubmit }) => {
     return (
         <div className='mt-10'>
             <form onSubmit={ handleFormSubmit }>
                 <div className='flex flex-col mb-6'>
-                    <label htmlFor='identifier' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Recipient Email/Mobile Number</label>
+                    <label htmlFor='identifier' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Agent Email/Mobile Number</label>
                     <div className='relative'>
                         <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                             <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
@@ -44,7 +44,7 @@ const SendMoneyForm = ({ identifier, setIdentifier, amount, setAmount, handleFor
     );
 };
 
-SendMoneyForm.propTypes = {
+CashInForm.propTypes = {
     identifier: PropTypes.string,
     setIdentifier: PropTypes.func,
     amount: PropTypes.string,
@@ -52,4 +52,4 @@ SendMoneyForm.propTypes = {
     handleFormSubmit: PropTypes.func,
 };
 
-export default SendMoneyForm;
+export default CashInForm;

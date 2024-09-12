@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
-import useAxiosPublic from '../hooks/useAxiosPublic'
-import Loading from '../components/Loading'
-import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import Loading from '../components/Loading';
+import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);

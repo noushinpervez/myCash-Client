@@ -36,7 +36,7 @@ const SendMoney = () => {
                 fee: parseFloat(amount) > 100 ? 5 : 0,
                 totalAmount: parseFloat(amount) + (parseFloat(amount) > 100 ? 5 : 0),
                 timestamp: new Date().toISOString(),
-                category: "Send Money",
+                category: 'Send Money',
             });
 
             setIdentifier('');
@@ -50,7 +50,7 @@ const SendMoney = () => {
         } catch (error) {
             ErrorToast.fire({
                 icon: 'error',
-                title: error.response.data?.message || 'Transaction failed',
+                title: error.response.data?.message || 'Send Money failed',
             });
         }
     };
@@ -107,7 +107,7 @@ const SendMoney = () => {
             } else {
                 setMessage('');
                 setMsg(
-                    <div className="text-gray-600 flex flex-wrap justify-between text-right my-4">
+                    <div className='text-gray-600 flex flex-wrap justify-between text-right my-4'>
                         <p className='flex flex-col'>Amount<span className='text-sky-600 font-medium'>BDT { amount }</span></p>
                         <p className='flex flex-col'>+ Fee <span className='text-sky-600 font-medium'>BDT { fee }</span></p>
                         <p className='flex flex-col'>Total <span className='text-sky-600 font-medium'>BDT { totalAmount }</span></p>

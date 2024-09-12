@@ -1,9 +1,9 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import { useNavigate } from 'react-router-dom'
-import useAxiosPublic from './useAxiosPublic'
-import logout from '../utils/logout'
-import { useEffect, useState } from 'react'
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import useAxiosPublic from './useAxiosPublic';
+import logout from '../utils/logout';
+import { useEffect, useRef, useState } from 'react';
 
 const axiosSecure = axios.create({
     baseURL: 'https://mycash-ten.vercel.app',
@@ -15,9 +15,12 @@ const useAxiosSecure = () => {
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
     let token = null;
+    const hasLoggedOutRef = useRef(false);
 
     const handleLogout = async () => {
-        await logout(axiosPublic, 'Access denied');
+        if (hasLoggedOutRef.current) return; 
+        hasLoggedOutRef.current = true;
+        await logout(axiosPublic, 'Session expired. Please log in again.');
         setIsLoggedOut(true);
     };
 

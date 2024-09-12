@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 
-const SendMoneyModal = ({ modalOpen, closeModal, handleSendMoney, pin, setPin }) => {
+const CashOutModal = ({ modalOpen, closeModal, handleCashOut, pin, setPin }) => {
     return (
         <>
             { modalOpen && (
-                <div className='fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50'>
-                    <div className='bg-white p-4 rounded-md shadow-md w-full max-w-md'>
+                <div className='fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center'>
+                    <div className='bg-white rounded-md shadow-md p-4 w-full max-w-md'>
                         <h2 className='text-lg font-medium mb-4'>Enter PIN to Confirm</h2>
-                        <form onSubmit={ handleSendMoney }>
+                        <form onSubmit={ handleCashOut }>
                             <div className='flex flex-col mb-6'>
                                 <label htmlFor='pin' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Pin</label>
                                 <div className='relative'>
@@ -35,12 +35,12 @@ const SendMoneyModal = ({ modalOpen, closeModal, handleSendMoney, pin, setPin })
     );
 };
 
-SendMoneyModal.propTypes = {
+CashOutModal.propTypes = {
     modalOpen: PropTypes.bool,
     closeModal: PropTypes.func,
-    handleSendMoney: PropTypes.func,
+    handleCashOut: PropTypes.func,
     pin: PropTypes.string,
     setPin: PropTypes.func,
 };
 
-export default SendMoneyModal;
+export default CashOutModal;

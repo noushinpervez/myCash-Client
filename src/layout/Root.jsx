@@ -1,5 +1,5 @@
-import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
-import Sidebar from './Sidebar'
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom';
+import Sidebar from './Sidebar';
 
 const Root = () => {
     const location = useLocation();
