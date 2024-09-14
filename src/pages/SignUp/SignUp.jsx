@@ -4,11 +4,18 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import Toast from '../../components/Toast';
 import Loading from '../../components/Loading';
 import ErrorToast from '../../components/ErrorToast';
+import Visible from '../../assets/Visible.jsx';
+import Hidden from '../../assets/Hidden.jsx';
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [pinVisible, setPinVisible] = useState(false);
+
+    const togglePinVisibility = () => {
+        setPinVisible(!pinVisible);
+    };
 
     const [formData, setFormData] = useState({
         name: '',
@@ -58,11 +65,15 @@ const SignUp = () => {
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4'>
             <div className='flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
-                <div className='font-medium self-center text-xl sm:text-2xl uppercase text-gray-800'>Create An Account</div>
+                <div className='flex justify-center items-center mb-6'>
+                    <img className='w-8 h-8' src='./logo.svg' alt='Logo' />
+                    <h1 className='text-2xl font-semibold text-blue-500 cursive'>myCash</h1>
+                </div>
+                <h1 className='self-center text-3xl text-blue-600 font-bold'>Create your account</h1>
                 <div className='mt-10'>
                     <form action='submit' onSubmit={ handleSubmit }>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor='account' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Select an option</label>
+                            <label htmlFor='role' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold'>Select an option</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1' viewBox='0 0 24 24' stroke='currentColor'>
@@ -72,7 +83,7 @@ const SignUp = () => {
                                         <path d='M10 6h4M9 18h6' />
                                     </svg>
                                 </div>
-                                <select id='role' className='text-sm sm:text-base text-gray-500 pl-9 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' onChange={ handleRoleChange } required>
+                                <select id='role' className={ `pl-9 pr-4 rounded-md border border-gray-400 w-full py-3 focus:outline-none focus:border-blue-400 bg-white ${formData.role ? '#373D3F' : 'text-gray-500'}` } onChange={ handleRoleChange } value={ formData.role } required>
                                     <option value='' disabled>Choose a role</option>
                                     <option value='User'>User</option>
                                     <option value='Agent'>Agent</option>
@@ -80,7 +91,7 @@ const SignUp = () => {
                             </div>
                         </div>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor='email' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Username</label>
+                            <label htmlFor='username' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold'>Username</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
@@ -89,11 +100,11 @@ const SignUp = () => {
                                 </div>
                                 <input id='name' type='text' name='name' maxLength='30' pattern='^[^0-9]*$' onInput={ (event) => {
                                     event.target.value = event.target.value.replace(/\d/g, '');
-                                } } value={ formData.name } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='First and Last Name' required />
+                                } } value={ formData.name } onChange={ handleChange } className='placeholder-gray-500 pl-10 pr-4 rounded-md border border-gray-400 w-full py-3 focus:outline-none focus:border-blue-400' placeholder='First and Last Name' required />
                             </div>
                         </div>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor='email' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Mobile Number</label>
+                            <label htmlFor='number' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold'>Mobile Number</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1' viewBox='0 0 48 48' stroke='currentColor'>
@@ -107,11 +118,11 @@ const SignUp = () => {
                                     } else {
                                         event.target.setCustomValidity('');
                                     }
-                                } } value={ formData.number } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='01×××××××××' required />
+                                } } value={ formData.number } onChange={ handleChange } className='placeholder-gray-500 pl-10 pr-4 rounded-md border border-gray-400 w-full py-3 focus:outline-none focus:border-blue-400' placeholder='01×××××××××' required />
                             </div>
                         </div>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor='email' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Email Address</label>
+                            <label htmlFor='email' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold'>Email Address</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
@@ -126,11 +137,11 @@ const SignUp = () => {
                                     } else {
                                         input.setCustomValidity('');
                                     }
-                                } } value={ formData.email } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='user@gmail.com' required />
+                                } } value={ formData.email } onChange={ handleChange } className='placeholder-gray-500 pl-10 pr-4 rounded-md border border-gray-400 w-full py-3 focus:outline-none focus:border-blue-400' placeholder='username@gmail.com' required />
                             </div>
                         </div>
                         <div className='flex flex-col mb-6'>
-                            <label htmlFor='password' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600'>Pin</label>
+                            <label htmlFor='password' className='mb-1 text-xs sm:text-sm tracking-wide text-gray-600 font-semibold'>Pin</label>
                             <div className='relative'>
                                 <div className='inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400'>
                                     <span>
@@ -139,14 +150,21 @@ const SignUp = () => {
                                         </svg>
                                     </span>
                                 </div>
-                                <input id='pin' type='password' name='pin' pattern='[0-9]{5}' maxLength='5' onInput={ (event) => {
+                                <input id='pin' type={ pinVisible ? 'text' : 'password' } name='pin' pattern='[0-9]{5}' maxLength='5' onInput={ (event) => {
                                     event.target.value = event.target.value.replace(/[^0-9]/g, '');
-                                } } value={ formData.pin } onChange={ handleChange } className='text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400' placeholder='*****' autoComplete='' required />
+                                } } value={ formData.pin } onChange={ handleChange } className='placeholder-gray-500 pl-10 pr-4 rounded-md border border-gray-400 w-full py-3 focus:outline-none focus:border-blue-400' placeholder='*****' autoComplete='' required />
+                                <button
+                                    type='button'
+                                    onClick={ togglePinVisibility }
+                                    className='absolute right-0 top-0 h-full px-3 flex items-center text-gray-400'
+                                >
+                                    { pinVisible ? <Visible /> : <Hidden /> }
+                                </button>
                             </div>
                         </div>
                         <div className='flex w-full'>
-                            <button type='submit' className='flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in'>
-                                <span className='mr-2 uppercase'>Sign Up</span>
+                            <button type='submit' className='flex items-center justify-center focus:outline-none text-white bg-blue-600 hover:bg-blue-700 rounded py-3 w-full transition duration-150 ease-in'>
+                                <span className='mr-2 uppercase font-semibold'>Sign Up</span>
                                 <span>
                                     <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
                                         <path d='M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z' />
@@ -157,9 +175,9 @@ const SignUp = () => {
                     </form>
                 </div>
                 <div className='flex justify-center items-center mt-6'>
-                    <Link to='/login' className='inline-flex items-center font-bold text-blue-500 hover:text-blue-700 text-xs text-center'>
+                    <Link to='/login' className='inline-flex items-center font-bold text-blue-500 hover:text-blue-700 text-sm text-center'>
                         <span>
-                            <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
+                            <svg className='h-5 w-5' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
                                 <path d='M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z' />
                             </svg>
                         </span>

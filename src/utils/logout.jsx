@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import Toast from '../components/Toast';
 import ErrorToast from '../components/ErrorToast';
 
-const logout = async (axiosPublic, toastTitle = 'Logged out successfully') => {
+const logout = async (axiosPublic, toastTitle = 'Logged out successfully', refetchUserData) => {
     let icon = 'success';
     if (toastTitle !== 'Logged out successfully') {
         icon = 'error';
@@ -12,6 +12,9 @@ const logout = async (axiosPublic, toastTitle = 'Logged out successfully') => {
         await axiosPublic.post('/logout', {}, { withCredentials: true });
         Cookies.remove('user');
         Cookies.remove('token');
+        if (refetchUserData) {
+            refetchUserData();
+        }
         Toast.fire({
             icon: icon,
             title: toastTitle,

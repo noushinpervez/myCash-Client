@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
                 </PrivateRoute>,
             },
             {
-                path: 'statements',
+                path: 'statement',
                 element: <UserActiveRoute>
                     <Statements />
                 </UserActiveRoute>,
@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
                 </UserActiveRoute>,
             },
             {
-                path: 'transactions',
+                path: 'requests',
                 element: <UserActiveRoute>
                     <Transactions />
                 </UserActiveRoute>,

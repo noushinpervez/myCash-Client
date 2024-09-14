@@ -3,8 +3,9 @@ import { Navigate, useLocation } from 'react-router-dom';
 import Loading from '../components/Loading';
 import PropTypes from 'prop-types';
 import useAxiosPublic from '../hooks/useAxiosPublic';
-import useUserData from '../hooks/useUserData';
+import { useUserData } from '../Provider/UserProvider';
 import useUserDataQuery from '../hooks/useUserDataQuery';
+import ErrorToast from '../components/ErrorToast';
 
 const UserActiveRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -29,6 +30,8 @@ const UserActiveRoute = ({ children }) => {
 
         if (user) {
             checkAuthAndStatus();
+        } else {
+            setIsAuthenticated(false);
         }
     }, [axiosPublic, user, data]);
 
@@ -36,8 +39,16 @@ const UserActiveRoute = ({ children }) => {
         return <Loading />;
     }
 
+    if (isAuthenticated && location.pathname === '/requests' && user?.role !== 'Agent') {
+        ErrorToast.fire({
+            icon: 'error',
+            title: 'Access denied.',
+        })
+        return <Navigate to='/' />;
+    }
+
     if (!isAuthenticated) {
-        return <Navigate to='/login' state={ { from: location?.pathname || '/' } } />;
+        return <Navigate to='/login' state={ location?.pathname || '/' } />;
     }
 
     return isActive ? <>{ children }</> : <Navigate to='/' />;

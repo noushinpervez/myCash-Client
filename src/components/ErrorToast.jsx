@@ -5,8 +5,9 @@ const Toast = Swal.mixin({
     position: 'top-end',
     showConfirmButton: false,
     timer: 3000,
-    timerProgressBar: true,
-    background: '#fff',
+    padding: '0.7em',
+    color: '#fff',
+    background: '#3b82f6',
     iconColor: '#ef4444',
     didOpen: (toast) => {
         toast.onmouseenter = Swal.stopTimer;

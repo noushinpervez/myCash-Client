@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import useUserData from '../../../hooks/useUserData';
+import { useUserData } from '../../../Provider/UserProvider';
 import useUserDataQuery from '../../../hooks/useUserDataQuery';
 import Loading from '../../../components/Loading';
 import ErrorToast from '../../../components/ErrorToast';
@@ -73,7 +73,7 @@ const SendMoney = () => {
 
     const validateRecipient = useCallback(async () => {
         try {
-            const response = await axiosSecure.post('/validate', {
+            const response = await axiosSecure.post('/validate-send-money', {
                 identifier,
                 amount: parseFloat(amount)
             }, { withCredentials: true });
@@ -108,9 +108,9 @@ const SendMoney = () => {
                 setMessage('');
                 setMsg(
                     <div className='text-gray-600 flex flex-wrap justify-between text-right my-4'>
-                        <p className='flex flex-col'>Amount<span className='text-sky-600 font-medium'>BDT { amount }</span></p>
-                        <p className='flex flex-col'>+ Fee <span className='text-sky-600 font-medium'>BDT { fee }</span></p>
-                        <p className='flex flex-col'>Total <span className='text-sky-600 font-medium'>BDT { totalAmount }</span></p>
+                        <p className='flex flex-col font-light'>Amount<span className='text-sky-600 font-medium'>BDT { amount }</span></p>
+                        <p className='flex flex-col font-light'>+ Fee <span className='text-sky-600 font-medium'>BDT { fee }</span></p>
+                        <p className='flex flex-col font-light'>Total <span className='text-sky-600 font-medium'>BDT { totalAmount }</span></p>
                     </div>
                 );
             }
@@ -139,7 +139,8 @@ const SendMoney = () => {
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 w-full'>
             <div className='flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
-                <div className='font-medium self-center text-xl sm:text-2xl uppercase text-gray-800'>Send Money</div>
+                <h1 className='self-center text-3xl text-blue-600 font-bold mb-4'>Send Money</h1>
+                <p className='text-center text-blue-400 font-light sm:text-sm italic'>For transactions over 100 Taka, a fee of 5 Taka will be applied.</p>
                 <SendMoneyForm
                     identifier={ identifier }
                     setIdentifier={ setIdentifier }
@@ -147,16 +148,16 @@ const SendMoney = () => {
                     setAmount={ setAmount }
                     handleFormSubmit={ (e) => { e.preventDefault(); openModal(); } }
                 />
-                { message && <p className='text-red-500 text-center font-semibold my-2'>{ message }</p> }
+                { message && <p className='text-red-500 text-center font-medium my-4'>{ message }</p> }
                 { msg && (<>{ msg }</>) }
                 <div className='flex justify-center items-center mt-6'>
-                    <p className='inline-flex items-center font-bold text-blue-500 hover:text-blue-700 text-center ml-2'>Available Balance: <span>
-                        <svg className='h-6 w-6' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
+                    <p className='inline-flex text-sm items-center font-bold text-blue-500 hover:text-blue-700 text-center ml-2'>Available Balance: <span>
+                        <svg className='h-4 w-4' fill='none' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' viewBox='0 0 24 24' stroke='currentColor'>
                             <path stroke='none' d='M0 0h24v24H0z' />
                             <path d='M17.5 15.5 A1 1 0 0 1 16.5 16.5 A1 1 0 0 1 15.5 15.5 A1 1 0 0 1 17.5 15.5 z' />
                             <path d='M7 7a2 2 0 114 0v9a3 3 0 006 0v-.5M8 11h6' />
                         </svg>
-                    </span>{ data.balance }</p>
+                    </span>{ data?.balance }</p>
                 </div>
             </div>
             <SendMoneyModal

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import useUserData from '../../../hooks/useUserData';
+import { useUserData } from '../../../Provider/UserProvider';
 import useUserDataQuery from '../../../hooks/useUserDataQuery';
 import Loading from '../../../components/Loading';
 import ErrorToast from '../../../components/ErrorToast';
@@ -74,7 +74,7 @@ const CashIn = () => {
 
     const validateAgent = useCallback(async () => {
         try {
-            const response = await axiosSecure.post('/validate-agent-cashin', {
+            const response = await axiosSecure.post('/validate-cash-in', {
                 identifier,
                 amount: parseFloat(amount)
             }, { withCredentials: true });
@@ -100,9 +100,9 @@ const CashIn = () => {
 
             setMessage('');
             setMsg(
-                <div className='text-gray-600 flex flex-wrap justify-between text-right my-4'>
-                    <p className='flex flex-col'>Amount<span className='text-sky-600 font-medium'>BDT { amount }</span></p>
-                    <p className='flex flex-col'>Total <span className='text-sky-600 font-medium'>BDT { amount }</span></p>
+                <div className='text-gray-600 flex flex-wrap justify-between text-right mt-4'>
+                    <p className='flex flex-col font-light'>Amount<span className='text-sky-600 font-medium'>BDT { amount }</span></p>
+                    <p className='flex flex-col font-light'>Total <span className='text-sky-600 font-medium'>BDT { amount }</span></p>
                 </div>
             );
         };
@@ -130,7 +130,8 @@ const CashIn = () => {
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 w-full'>
             <div className='flex flex-col bg-white shadow-md px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-md w-full max-w-md'>
-                <div className='font-medium self-center text-xl sm:text-2xl uppercase text-gray-800'>Cash In</div>
+                <h1 className='self-center text-3xl text-blue-600 font-bold mb-4'>Cash In</h1>
+                <p className='text-center text-blue-400 font-light sm:text-sm italic'>No fee will be applied for cashing in.</p>
                 <CashInForm
                     identifier={ identifier }
                     setIdentifier={ setIdentifier }
@@ -138,7 +139,7 @@ const CashIn = () => {
                     setAmount={ setAmount }
                     handleFormSubmit={ (e) => { e.preventDefault(); openModal(); } }
                 />
-                { message && <p className='text-red-500 text-center font-semibold my-2'>{ message }</p> }
+                { message && <p className='text-red-500 text-center font-medium my-4'>{ message }</p> }
                 { msg && (<>{ msg }</>) }
             </div>
             <CashInModal

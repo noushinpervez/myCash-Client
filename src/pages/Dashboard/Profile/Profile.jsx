@@ -1,4 +1,4 @@
-import useUserData from '../../../hooks/useUserData';
+import { useUserData } from '../../../Provider/UserProvider';
 import Loading from '../../../components/Loading';
 import useUserDataQuery from '../../../hooks/useUserDataQuery';
 
@@ -17,7 +17,7 @@ const Profile = () => {
                     <span className='absolute top-25 z-0 h-20 w-20 rounded-full bg-blue-500 transition-all duration-300 group-hover:scale-[11.5]'></span>
                     <div className='relative z-10 mx-auto max-w-md'>
                         <div className='text-right -mt-12'>
-                            <p className='text-blue-900 font-medium h-6'>{ data?.role }</p>
+                            <p className='text-blue-900 font-medium'>{ data?.role }</p>
                             <p className={ `mt-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full italic ${data?.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}` }>{ data?.status }</p>
                         </div>
                         <span className='grid h-20 w-20 place-items-center rounded-full bg-blue-500 transition-all duration-300 group-hover:bg-blue-700'>
@@ -26,13 +26,13 @@ const Profile = () => {
                             </svg>
                         </span>
                         <div
-                            className='mt-5 transition-all duration-300 group-hover:text-white/90 font-medium self-center text-xl lg:text-2xl text-gray-800'>
+                            className='mt-5 transition-all duration-300 group-hover:text-white/90 font-medium self-center text-2xl text-gray-800'>
                             <p className='uppercase text-ellipsis overflow-hidden'>{ data?.name }</p>
                             <p className='text-lg text-gray-500 group-hover:text-white/70 text-ellipsis overflow-hidden'>{ data?.email }</p>
                             <p className='mt-2 text-lg text-gray-500 group-hover:text-white/70'>{ data?.number }</p>
                         </div>
-                        <div className='mt-8 text-xl font-semibold leading-7 flex items-center gap-2 text-sky-500 transition-all duration-300 group-hover:text-blue-950'>
-                            <svg fill='none' width='64px' height='64px' viewBox='0 0 24 24' className='w-6 h-6' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'>
+                        <div className='mt-8 text-2xl font-semibold leading-7 flex items-center gap-2 text-sky-500 transition-all duration-300 group-hover:text-blue-950'>
+                            <svg fill='none' width='64px' height='64px' viewBox='0 0 24 24' className='w-7 h-7' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2'>
                                 <path stroke='none' d='M0 0h24v24H0z' />
                                 <path d='M17.5 15.5 A1 1 0 0 1 16.5 16.5 A1 1 0 0 1 15.5 15.5 A1 1 0 0 1 17.5 15.5 z' />
                                 <path d='M7 7a2 2 0 114 0v9a3 3 0 006 0v-.5M8 11h6' />

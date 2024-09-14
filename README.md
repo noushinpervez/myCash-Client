@@ -6,8 +6,6 @@
 
 ## Key Features
 
-### User Features
-
 - User and Agent registration with 5-digit PIN (hashed using bcrypt.js) and admin approval.
 - Secure login via Mobile Number/Email and PIN using JWT authentication.
 - New users receive a 40 Taka bonus; new agents receive a 10,000 Taka bonus upon admin approval.

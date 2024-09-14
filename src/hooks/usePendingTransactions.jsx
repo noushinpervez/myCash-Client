@@ -1,19 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from './useAxiosSecure';
+import { useUserData } from '../Provider/UserProvider';
 
-const usePendingTransactions = (email, page) => {
+const usePendingTransactions = (email, number, page) => {
     const axiosSecure = useAxiosSecure();
+    const { user } = useUserData();
 
     return useQuery({
-        queryKey: ['pendingTransactions', email, page],
+        queryKey: ['pendingTransactions', email, number, page],
         queryFn: async () => {
-            const response = await axiosSecure.get('/transactions/pending', {
-                params: { email, status: 'pending', page },
+            if (user?.role !== 'Agent') {
+                return { transactions: [], totalCount: 0 };
+            }
+
+            const response = await axiosSecure.get('/pending', {
+                params: { email, number, status: 'pending', page },
                 withCredentials: true,
             });
             return response.data;
         },
-        enabled: !!email, 
+        enabled: user?.role === 'Agent' && !!email,
         keepPreviousData: true,
     });
 };
