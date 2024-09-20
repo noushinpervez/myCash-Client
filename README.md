@@ -2,13 +2,14 @@
 
 ## Project Overview
 
-**myCash** is a web-based Mobile Financial Service (MFS) platform built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It functions similarly to platforms like bKash or Nagad, built using the MERN stack: React.js, Node.js, Express.js, and MongoDB. The system has three roles: **User**, **Agent** and **Admin**. Key features include user registration, secure login, money transfer, cash-out, cash-in, balance inquiry, and transaction history.
+**myCash** is a web-based Mobile Financial Service (MFS) platform built using the MERN stack. It functions similarly to platforms like bKash or Nagad. The system has three roles: **User**, **Agent** and **Admin**. Key features include user registration, secure login, PIN protected transaction such as money transfer, cash-out, cash-in, balance inquiry, user management, and transaction history.
 
 ## Key Features
 
-- User and Agent registration with 5-digit PIN (hashed using bcrypt.js) and admin approval.
+- User and Agent registration with 5-digit PIN (hashed using bcrypt.js), unique phone number, email and admin approval.
 - Secure login via Mobile Number/Email and PIN using JWT authentication.
 - New users receive a 40 Taka bonus; new agents receive a 10,000 Taka bonus upon admin approval.
+- Users can perform all transaction services using an active phone number or email of a registered user or agent, along with a valid transaction amount.
 - Users can send money to other users with a minimum transaction of 50 Taka. A fee of 5 Taka applies to transactions over 100 Taka.
 - Users can cash out via agents, with a 1.5% fee deducted from the user balance and added to agent balance.
 - Agents can handle cash-in and cash-out requests, updating both user and agent balances accordingly.
@@ -22,6 +23,15 @@
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Authentication:** JWT (JSON Web Tokens), `bcrypt.js` for PIN hashing
+
+## Challenges
+
+- Figuring out how to use MongoDB for secure user authentication was a key challenge.
+- Connecting the React frontend with the Node.js backend required careful attention to detail, including handling API requests, implementing proper logic and managing state.
+- The website’s design and technology were updated several times to improve the project.
+- It took a lot of effort to find and apply effective design ideas.
+- Picking the right tools and libraries to work with React was a detailed process.
+- Ensuring the website worked well on different devices required careful testing and adjustments.
 
 ## Credentials
 ### Admin
